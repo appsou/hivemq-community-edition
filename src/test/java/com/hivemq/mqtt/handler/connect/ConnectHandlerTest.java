@@ -277,7 +277,7 @@ public class ConnectHandlerTest {
         for (final Map.Entry<String, ChannelHandler> handler : embeddedChannel.pipeline()) {
             if (handler.getValue() instanceof IdleStateHandler) {
                 // Server-side  keepalive * Default 1.5x multiplier for keepalive interval * 1000x for milliseconds conversion
-                assertEquals(( (long)(65535D * 1.5D) * 1000L), ((IdleStateHandler) handler.getValue()).getReaderIdleTimeInMillis());
+                assertEquals(((long) (65535D * 1.5D) * 1000L), ((IdleStateHandler) handler.getValue()).getReaderIdleTimeInMillis());
                 containsHandler = true;
             }
         }
@@ -326,7 +326,7 @@ public class ConnectHandlerTest {
         for (final Map.Entry<String, ChannelHandler> handler : embeddedChannel.pipeline()) {
             if (handler.getValue() instanceof IdleStateHandler) {
                 // Server-side  keepalive * Default 1.5x multiplier for keepalive interval * 1000x for milliseconds conversion
-                assertEquals((long)( 500 * 1.5 * 1000), ((IdleStateHandler) handler.getValue()).getReaderIdleTimeInMillis());
+                assertEquals((long) (500 * 1.5 * 1000), ((IdleStateHandler) handler.getValue()).getReaderIdleTimeInMillis());
                 containsHandler = true;
             }
         }
@@ -376,7 +376,7 @@ public class ConnectHandlerTest {
         for (Map.Entry<String, ChannelHandler> handler : embeddedChannel.pipeline()) {
             if (handler.getValue() instanceof IdleStateHandler) {
                 // Server-side  keepalive * Default 1.5x multiplier for keepalive interval * 1000x for milliseconds conversion
-                assertEquals(( (long)(360 * 1.5D) * 1000L), ((IdleStateHandler) handler.getValue()).getReaderIdleTimeInMillis());
+                assertEquals(((long) (360 * 1.5D) * 1000L), ((IdleStateHandler) handler.getValue()).getReaderIdleTimeInMillis());
                 containsHandler = true;
             }
         }
@@ -1473,9 +1473,7 @@ public class ConnectHandlerTest {
     }
 
     private void buildPipeline() {
-        embeddedChannel.pipeline()
-                .addFirst(ChannelHandlerNames.MQTT_MESSAGE_DECODER,
-                        TestMqttDecoder.create(true));
+        embeddedChannel.pipeline().addFirst(ChannelHandlerNames.MQTT_MESSAGE_DECODER, TestMqttDecoder.create());
         embeddedChannel.pipeline().addLast(ChannelHandlerNames.GLOBAL_THROTTLING_HANDLER, new DummyHandler());
         embeddedChannel.attr(ChannelAttributes.CLIENT_ID).set("clientId");
         embeddedChannel.attr(ChannelAttributes.MQTT_VERSION).set(ProtocolVersion.MQTTv5);
